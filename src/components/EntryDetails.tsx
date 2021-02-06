@@ -28,15 +28,26 @@ const EntryDetails = () => {
       }
       navigate(`/entries/${diaryId}`);
     }
-  }, []);
+  }, [
+    currentDiaryArray.length,
+    currentEntryArray.length,
+    diaryId,
+    entryId,
+    navigate,
+  ]);
   return (
     <Container>
       <Card style={{ marginTop: 20, marginBottom: 20 }}>
         <CardContent>
-          <Typography variant="h4" align='center' style={{flex: 1}} gutterBottom>
+          <Typography
+            variant="h4"
+            align="center"
+            style={{ flex: 1 }}
+            gutterBottom
+          >
             {entry.title}
           </Typography>
-          <Markdown >{entry.content}</Markdown>
+          <Markdown>{entry.content}</Markdown>
           <Grid container justify="space-between" style={{ marginTop: 20 }}>
             <Grid item>
               <Button
@@ -48,7 +59,11 @@ const EntryDetails = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" onClick={() => navigate(`/editor/${diaryId}/${entryId}`)}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => navigate(`/editor/${diaryId}/${entryId}`)}
+              >
                 {entryId === "0" ? "Create Entry" : "Update Entry"}
               </Button>
             </Grid>

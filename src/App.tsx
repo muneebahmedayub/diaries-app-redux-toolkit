@@ -32,8 +32,6 @@ function App() {
   // App functioning
   const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated)
 
-  console.log(isLoggedIn)
-
   return (
     <div className="app">
       <ThemeProvider theme={theme}>

@@ -6,9 +6,6 @@ import {
   Grid,
   TextField,
   Button,
-  Breadcrumbs,
-  Link,
-  Typography,
 } from "@material-ui/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -25,28 +22,35 @@ const EditorComponent = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const diaries = useSelector((state: RootState) => state.diaries);
-  const entries = useSelector((state: RootState) => state.entries);
   const currentDiaryArray = diaries.filter((diary) => diary.id === diaryId);
 
-  const [editedEntry, setEditedEntry] = useState<{title: string, content: string}>({
+  const [editedEntry, setEditedEntry] = useState<{
+    title: string;
+    content: string;
+  }>({
     title: "",
     content: "",
   });
   useEffect(() => {
     if (currentDiaryArray.length === 0) {
       navigate("/");
-    } else if (entryId !== '0') {
+    } else if (entryId !== "0") {
       const fetchEntries = async () => {
         const { entries: _entries } = await http.get<
           null,
           { entries: Entry[] }
         >(`/entries/${diaryId}`);
-        const currentEntry = _entries.filter(entry => entry.id === entryId)[0]
-        setEditedEntry({title: currentEntry.title, content: currentEntry.content})
+        const currentEntry = _entries.filter(
+          (entry) => entry.id === entryId
+        )[0];
+        setEditedEntry({
+          title: currentEntry.title,
+          content: currentEntry.content,
+        });
       };
       fetchEntries();
     }
-  }, []);
+  }, [currentDiaryArray.length, diaryId, entryId, navigate]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

@@ -63,7 +63,7 @@ const EntriesComponent = () => {
       };
       fetchEntries();
     }
-  }, []);
+  }, [currentDiaryArray.length, diaryId, dispatch, navigate]);
   const currentDiary = currentDiaryArray[0];
 
   return (
